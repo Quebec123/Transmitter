@@ -1,6 +1,11 @@
-//
-// Created by wikto on 17/03/2026.
-//
+/*******************************************************************************
+ * @file    [ServerManager].[cpp]
+ * @brief   [Plik źródłowy obsługi komuninikacji czujnika upadku]
+ * * @project [Czujnik updaku oraz alarm]
+ * @author  [Wiktor Sobczyński]
+ * @date    [2026-06-14]
+ * @version V1.0
+ * *******************************************************************************/
 
 #include "ServerManager.h"
 #include "webpage/MainPageAP.h"
@@ -24,7 +29,7 @@ void ServerManager::loadCredentials() {
     _sta_password = _preferences.getString("password", "");
     _ceiling_height = _preferences.getString("ceiling_height", "");
     _fall_url = _preferences.getString("fall_url", "");
-    _presence_url = _preferences.getString("presence_url", "");`
+    _presence_url = _preferences.getString("presence_url", "");
     _preferences.end();
 }
 
@@ -46,7 +51,7 @@ void ServerManager::connectToWiFi() {
         Serial.println("\nConnected to WiFi!");
         Serial.print("IP Address: ");
         Serial.println(WiFi.localIP());
-        delay(2000); // Short delay before sending data
+        delay(2000);
     } else {
         Serial.println("\nFailed to connect to WiFi.");
         delay(5000);
@@ -54,13 +59,13 @@ void ServerManager::connectToWiFi() {
 }
 
 void ServerManager::startAP() {
-    loadCredentials(); // Load saved credentials
+    loadCredentials();
     if (!_sta_ssid.isEmpty() && !_sta_password.isEmpty()) {
         Serial.println("Credentials found. Attempting to connect to WiFi...");
-        connectToWiFi(); // Attempt to connect to WiFi
+        connectToWiFi();
         if (WiFi.status() == WL_CONNECTED) {
             Serial.println("WiFi connected. Skipping AP mode.");
-            return; // Skip starting the AP if WiFi is connected
+            return;
         }
     }
     WiFi.softAP(_ap_ssid, _ap_password);
@@ -81,10 +86,10 @@ void ServerManager::startAP() {
             _fall_url = _server.arg("fall_url").c_str();
             _presence_url = _server.arg("presence_url").c_str();
 
-            saveCredentials(); // Save credentials persistently
+            saveCredentials();
             _server.send(200, "text/plain", "Credentials and ceiling height saved.");
 
-            connectToWiFi(); // Attempt to connect to WiFi
+            connectToWiFi();
         } else {
             _server.send(400, "text/plain", "Invalid data");
         }
@@ -100,8 +105,8 @@ void ServerManager::stopAP() {
 bool ServerManager::loopAP() {
     _server.handleClient();
     if(WiFi.status() == WL_CONNECTED) {
-        stopAP(); // Stop AP mode if connected to WiFi
-        return false; // Exit loopAP
+        stopAP();
+        return false;
     }
     return true;
 }

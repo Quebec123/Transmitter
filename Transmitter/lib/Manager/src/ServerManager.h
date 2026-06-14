@@ -1,6 +1,11 @@
-//
-// Created by wikto on 17/03/2026.
-//
+/*******************************************************************************
+ * @file    [ServerManager].[h]
+ * @brief   [Plik nagłówkowy obsługi komuninikacji czujnika upadku]
+ * * @project [Czujnik updaku oraz alarm]
+ * @author  [Wiktor Sobczyński]
+ * @date    [2026-06-14]
+ * @version V1.0
+ * *******************************************************************************/
 
 #ifndef SERVER_MANAGER_H
 #define SERVER_MANAGER_H
@@ -23,7 +28,7 @@ private:
     WebServer _server{80};
     const char* _ap_ssid = "WS";
     const char* _ap_password = "12345678";
-    Preferences _preferences; // For storing values persistently
+    Preferences _preferences;
     String _sta_ssid = "MERCUSYS";
     String _sta_password = "1234567890";
     String _ceiling_height;

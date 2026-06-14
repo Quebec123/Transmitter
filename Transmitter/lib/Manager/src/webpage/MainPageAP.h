@@ -1,5 +1,12 @@
 #pragma once
-
+/*******************************************************************************
+ * @file    [MainPageAP].[h]
+ * @brief   [Strona konfiguracyjna czunika upadku]
+ * * @project [Czujnik updaku oraz alarm]
+ * @author  [Wiktor Sobczyński]
+ * @date    [2026-06-14]
+ * @version V1.0
+ * *******************************************************************************/
 #include <Arduino.h>
 
 const char CONFIG_PAGE[] PROGMEM = R"raw(
@@ -23,8 +30,8 @@ const char CONFIG_PAGE[] PROGMEM = R"raw(
             <input type="text" name="ssid" placeholder="WiFi SSID" required>
             <input type="password" name="password" placeholder="Password">
             <input type="number" name="ceiling_height" placeholder="Ceiling Height (cm)" required>
-            <input type="number" name="fall URL" placeholder="Fall URL is required" required>
-            <input type="number" name="presence URL" placeholder="Presence URL is required)" required>
+            <input type="text" name="fall_url" placeholder="Fall URL is required" required>
+            <input type="text" name="presence_url" placeholder="Presence URL is required)" required>
             <button type="submit">Connect Device</button>
         </form>
     </div>
